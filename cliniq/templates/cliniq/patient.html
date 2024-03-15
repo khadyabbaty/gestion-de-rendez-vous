@@ -1,0 +1,80 @@
+{% extends 'cliniq/base.html' %}
+
+
+ {% block content %}
+{% include 'cliniq/navbar.html' %}
+
+<section class="intro">
+  <div class="bg-image h-100">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div  style=" margin-top : 50px;">
+          <button type="button" class="btn btn-secondary btn-lg">
+            
+            <a class ="nav-link" href="{% url "add_patient" %}" ><i class="fas fa-times" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Ajouter</i></a>
+          </button>
+        </div>
+        <div class="row justify-content-center" style=" margin-top : 20px;">
+          <div class="col-12">
+            <div class="card shadow-2-strong" style="background-color: #f5f7fa">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-borderless mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">PATIENT</th>
+                        <th scope="col">AGE</th>
+                        <th scope="col">TELEPHONE</th>
+                        <th scope="col">RENDEVOU</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for p in patient %}
+                      
+                      <tr>
+                      
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{p.nom}} {{p.prénom}}</td>
+                        <td>{{p.age}} ans</td>
+                        <td>{{p.Tél}}</td>
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm px-3"
+                          >
+                          <a class ="nav-link" href="{% url "RDV" p.id %}" ><i>voir le rdv de {{p.nom}}</i></a>
+                        </button>
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-sm px-3"
+                          >
+                          <a class ="nav-link" href="{% url 'suprimer_patient' p.id %}" ><i class="fas fa-times">suprimer</i></a>
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-sm px-3"
+                          >
+                          <a class ="nav-link" href="{% url 'modifier_patient' p.id %}" ><i class="fas fa-times">Modifier</i></a>
+                          </button>
+                        </td>
+                        
+                      </tr>
+                      
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

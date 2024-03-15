@@ -1,0 +1,219 @@
+{% extends 'cliniq/base.html' %}
+{% block content %}
+<header>
+    <!-- Sidebar -->
+    <nav
+         id="sidebarMenu"
+         class="collapse d-lg-block sidebar collapse bg-white"
+         >
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+        
+          <a
+             href="{% url 'dashbord' %}"
+             class="list-group-item list-group-item-action py-2 ripple active"
+             >
+            <i class="fas fa-chart-area fa-fw me-3"></i
+              ><span>Users</span>
+          </a>
+         
+        </div>
+      </div>
+
+      
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+        
+          <a
+             href="{% url 'patients' %}"
+             class="list-group-item list-group-item-action py-2 ripple inactive"
+             >
+            <i class="fas fa-chart-area fa-fw me-3"></i
+              ><span>Clinic</span>
+          </a>
+         
+        </div>
+      </div>
+
+
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+        
+          <a
+             href="{% url 'logout' %}"
+             class="list-group-item list-group-item-action py-2 ripple inactive"
+             >
+            <i class="fas fa-chart-area fa-fw me-3"></i
+              ><span>Logout</span>
+          </a>
+         
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    
+  </header>
+  <!--Main Navigation-->
+  
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    <div class="container pt-4">
+      
+    
+        
+
+       
+        
+      
+    <!-- Specialist list -->
+<div style="margin-top :20px">
+  <div><h2 style="color:white;">Specialistes:</h2></div>
+  <button type="button" class="btn btn-secondary " style="margin-bottom: 10px;">
+    <a class ="nav-link" href="{% url 'add_specialiste' %}" ><i>+Ajouter</i></a>
+  </button>
+  <table class="table table-striped"  style="background-color: white" >
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Username</th>
+        <th scope="col">nom</th>
+        <th scope="col">spécialité</th>
+        <th scope="col">nbr max rdv </th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for sp in sps %}
+    
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        
+        <td>{{sp.user.username}}</td>
+        <td>{{sp.user.nom}} {{sp.user.prénom}}</td>
+        <td>{{sp.spécialité}}</td>
+        <td>{{sp.nbr_max_rdv}}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm px-3"
+          >
+          <a class ="nav-link" href="{% url 'delete_specialiste' sp.user.id %}" ><i class="fas fa-times">suprimer</i></a>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm px-3"
+          >
+          <a class ="nav-link" href="{% url 'update_specialiste' sp.user.id  %}" ><i class="fas fa-times">Modifier</i></a>
+          </button>
+        </td>
+        
+      </tr>
+      </tr>
+      
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<!-- end Specialist list -->
+
+<!-- gerent list -->
+    <div style="margin-top :20px">
+      <div><h2 style="color:white;">Gerents:</h2></div>
+      <button type="button" class="btn btn-secondary " style="margin-bottom: 10px;">
+        <a class ="nav-link" href="{% url 'add_gerent' %}" ><i>+Ajouter</i></a>
+      </button>
+      <table class="table table-striped"  style="background-color: white" >
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Username</th>
+            <th scope="col">nom</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+  
+        {% for gr in grs %}
+        
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            
+            <td>{{gr.user.username}}</td>
+            <td>{{gr.user.nom}} {{gr.user.prénom}}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger btn-sm px-3"
+              >
+              <a class ="nav-link" href="{% url 'delete_gerent' user.id %}" ><i class="fas fa-times">suprimer</i></a>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm px-3"
+              >
+              <a class ="nav-link" href="{% url 'update_gerent' gr.id %}" ><i class="fas fa-times">Modifier</i></a>
+              </button>
+            </td>
+            
+          </tr>
+          </tr>
+          
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+<!-- end gerent list -->
+
+
+    </div>
+  </div>
+  </main>
+  <!--Main layout-->
+  
+  <style>
+
+  
+    @media (min-width: 991.98px) {
+      main {
+        padding-left: 240px;
+      }
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 58px 0 0; /* Height of navbar */
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+      width: 240px;
+      z-index: 600;
+      
+    }
+    
+    @media (max-width: 991.98px) {
+      .sidebar {
+        width: 100%;
+      }
+    }
+    .sidebar .active {
+      border-radius: 5px;
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }.sidebar .inactive {
+      border-radius: 5px;
+      box-shadow: 0 2px 5px 0  rgb(105,105,105), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    
+    .sidebar-sticky {
+      position: relative;
+      top: 0;
+      height: calc(100vh - 48px);
+      padding-top: 0.5rem;
+      overflow-x: hidden;
+      overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    }
+</style>
+{% endblock %}
